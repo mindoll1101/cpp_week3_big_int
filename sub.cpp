@@ -11,6 +11,7 @@ void sub(string num1, string num2){
     string result = "";
     int sub = 0;
     int carry = 0;
+    bool isneg = false;                 //to save result is negative.
 
     while(1){
         int num1_c = 0;
@@ -31,7 +32,7 @@ void sub(string num1, string num2){
             carry = 0;
         }
 
-        if(sub < 0){
+        if(sub < 0){                //if the sub of two digits is lower than 0, carry.
             carry = 1;
             sub = 10 + sub;
             result = std::to_string(sub) + result;
@@ -40,12 +41,13 @@ void sub(string num1, string num2){
             result = std::to_string(sub) + result;
         }
         if(num1_length == 0 && num2_length == 0){
-            if(carry > 0){
+            if(carry > 0){          //if carry is 1 in end of sub, result is negative.
+                isneg = true;
                 num1 = "1";
                 num2 = result;
                 result = "";
                 carry = 0;
-                for(int i = 0; i < num2.length(); i++){
+                for(int i = 0; i < num2.length(); i++){     //convert to negative.
                     num1 = num1 + "0";
                 }
                 num1_length = num1.length();
@@ -57,16 +59,27 @@ void sub(string num1, string num2){
         }
     }
     char pre_c = '0';
-    count = 0;
-    for(char c : result){
+    count = 0;                          //count zeros.
+    for(char c : result){               //remove leading zeros.
         if(c == '0' && pre_c == c){
-            count += 1;
+            pre_c = '0';
+            if(isneg){
+                count += 1;
+            }
+            else{
+                count += 1;
+            }
         }
         else{
-            result = result.replace(0, count, "-");
             break;
         }
     }
-    
+    if(isneg){
+        result = result.replace(0, count, "-");
+    }
+    else if(count > 0){
+        result = result.substr(count, result.length()-1);
+    }
+
     std::cout << "Sub                   >> " + result << std::endl;
 }
