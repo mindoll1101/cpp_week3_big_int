@@ -39,20 +39,34 @@ void sub(string num1, string num2){
         else{
             result = std::to_string(sub) + result;
         }
-
         if(num1_length == 0 && num2_length == 0){
+            if(carry > 0){
+                num1 = "1";
+                num2 = result;
+                result = "";
+                carry = 0;
+                for(int i = 0; i < num2.length(); i++){
+                    num1 = num1 + "0";
+                }
+                num1_length = num1.length();
+                num2_length = num2.length();
+            }
+            else{
+                break;
+            }
+        }
+    }
+    char pre_c = '0';
+    count = 0;
+    for(char c : result){
+        if(c == '0' && pre_c == c){
+            count += 1;
+        }
+        else{
+            result = result.replace(0, count, "-");
             break;
         }
     }
-    if(carry > 0){
-        string ndec = "1";
-        for(int i = 0; i < result.lenght(); i++){
-            ndec = ndec + "0";
-        }
-        sub(ndec, result);
-    }
-    else{
-        std::cout << "Sub                   >> " + result << std::endl;
-    }
     
+    std::cout << "Sub                   >> " + result << std::endl;
 }
