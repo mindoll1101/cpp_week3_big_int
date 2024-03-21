@@ -78,6 +78,9 @@ void sub(string num1, string num2){
         result = result.replace(0, count, "-");
     }
     else if(count > 0){
+        if(count == result.length()){
+            count -= 1;
+        }
         result = result.substr(count, result.length()-1);
     }
 
