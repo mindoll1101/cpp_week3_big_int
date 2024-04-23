@@ -60,18 +60,20 @@ void sub(string num1, string num2){
     }
     char pre_c = '0';
     count = 0;                          //count zeros.
-    for(char c : result){               //remove leading zeros.
-        if(c == '0' && pre_c == c){
-            pre_c = '0';
-            if(isneg){
-                count += 1;
+    if(result != "0"){
+        for(char c : result){               //remove leading zeros.
+            if(c == '0' && pre_c == c){
+                pre_c = '0';
+                if(isneg){
+                    count += 1;
+                }
+                else{
+                    count += 1;
+                }
             }
             else{
-                count += 1;
+                break;
             }
-        }
-        else{
-            break;
         }
     }
     if(isneg){
